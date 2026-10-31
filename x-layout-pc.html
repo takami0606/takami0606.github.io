@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PC版 X表示カスタム — Tampermonkeyソースコード例 | Locker Room</title>
+<meta name="description" content="PCブラウザーのX表示を調整する非公式のTampermonkeyソースコード例。導入・更新・無効化の手順と全文コード。">
+<style>
+body{font-family:system-ui,sans-serif;background:#f4f6fa;color:#202735;margin:30px;line-height:1.7}main{max-width:1000px;margin:auto}.card{background:white;border-radius:12px;padding:24px;margin:16px 0}h1{font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.4}h2{font-size:1.25rem}a{color:#1763ad;overflow-wrap:anywhere}.tag{color:#566275;font-size:.9rem}pre{background:#15202b;color:#e8edf3;padding:16px;overflow-x:auto;border-radius:8px;font-size:13px;line-height:1.5;max-width:100%;box-sizing:border-box}li{margin:.5em 0}.hash{overflow-wrap:anywhere;font-family:monospace;font-size:.85rem}@media(max-width:600px){body{margin:16px}.card{padding:16px}ol,ul{padding-left:1.4em}}
+</style>
+</head>
+<body><main>
+<nav><a href="index.html">← Locker Room</a></nav>
+<header class="card"><p class="tag">PCブラウザー用 / 非公式 / ソースコード例</p>
+<h1>PC版 X表示カスタム</h1>
+<p>TampermonkeyでXの表示を調整するコード例です。AEOLIA Xデスクトップアプリとは別のものです。Android版は含みません。</p>
+<p><a href="x-layout-pc.user.js" download>ソースをダウンロード（.user.js・19,123 bytes）</a> · <a href="#source">全文コードを読む</a></p>
+<p>コード内のバージョンは <strong>0.4</strong>。元のPC版と、その後に受け入れられた操作欄の修正を組み合わせた会話由来の例を、動作を変更せず掲載しています。</p></header>
+<section class="card"><h2>できること</h2><ul>
+<li>投稿の文字・間隔を小さくし、中央領域を広げます。左右の欄を開閉できます（初期状態は左を表示・右を折り畳み）。</li>
+<li>画像・動画、引用投稿、リンクカードを折り畳み、リンクで開閉します。「おすすめユーザー」を非表示にします。</li>
+<li>ホームでは「フォロー中」タブを自動で選択します。</li>
+<li>一覧の投稿本文や余白を1回クリックすると、その投稿の操作欄を表示します。2回目はX本来の個別表示へ進みます。リンクやボタン、文字選択、修飾キー付きクリックは元の動作を優先します。</li>
+</ul></section>
+<section class="card"><h2>導入</h2><ol>
+<li>PCブラウザーでTampermonkeyを用意します。導入先は<a href="https://www.tampermonkey.net/">Tampermonkey公式サイト</a>で確認してください。</li>
+<li>Tampermonkeyの管理画面から新しいスクリプトを作成します。</li>
+<li>最初に入っている雛形をすべて削除し、下の全文コード（またはダウンロードしたファイルの全文）に置き換えます。</li>
+<li>対象が <code>https://x.com/*</code>、特権API指定が <code>@grant none</code> であることを確認して保存・有効化します。同じ目的の古いスクリプトは無効にしてください。</li>
+<li>Xのページを再読み込みして表示を確認します。環境によって拡張機能の実行設定が必要な場合はTampermonkeyの公式案内を確認してください。</li>
+</ol><p>.user.jsリンクからインストール画面が開く環境もあります。内容を確認してから操作してください。このページを読むだけでスクリプトがインストール・実行されることはありません。</p>
+<h2>更新・無効化・削除</h2><p>更新前に旧コードを控え、同じスクリプトの内容を新しい全文に置き換えて保存し、Xを再読み込みします。重複するコピーを同時に有効にしないでください。</p><p>元の表示に戻すときはTampermonkeyの管理画面でこのスクリプトをOFFにするか削除し、Xを再読み込みしてください。</p></section>
+<section class="card"><h2>確認範囲と注意点</h2>
+<p>公開時の確認はソースの点検とJavaScript構文確認です。現在のXでの新たな実機動作確認は行っていません。Xの画面構成・表示言語・ブラウザー環境が変わると、一部機能が動作しなくなる可能性があります。</p>
+<p>このコードに外部送信用API、Cookie・認証情報の読み取り、保存領域へのアクセス、外部コード読み込みはありません。DOMとCSSによる表示変更を行い、「フォロー中」の選択のみ自動クリックします。X公式の提供物ではなく、Xの規約への適合を保証するものではありません。</p>
+<p class="hash">SHA-256: d8c1abc3d589be971307c5cd10a1ebd0df74d87e50f7cea86e7842d9ff98fc36</p></section>
+<section class="card" id="source"><h2>全文コード</h2><p>横に長い行はコード欄内でスクロールできます。ダウンロード版と同じ内容です。</p><pre tabindex="0" aria-label="Tampermonkeyソースコード全文"><code>// ==UserScript==
+// @name         X 読みやすくする
+// @namespace    local.x.reader
+// @version      0.4
+// @description  表示を圧縮し、画像・引用・カード・操作欄を折り畳む
+// @match        https://x.com/*
+// @run-at       document-end
+// @grant        none
+// ==/UserScript==
+
+(() =&gt; {
+  &#39;use strict&#39;;
+
+  // ── 設定 ──
+  const WIDTH = 1400;       // 中央カラムの最大幅
+  const LEFT_WIDTH = 68;    // 左メニューの幅
+  const RIGHT_WIDTH = 350;  // 右の欄の幅
+  const TEXT_SIZE = 13;     // 投稿本文の文字サイズ
+
+  // 初期状態：左は表示、右は折り畳み
+  document.body.classList.remove(&#39;xr-left-closed&#39;);
+  document.body.classList.add(&#39;xr-right-closed&#39;);
+
+  const style = document.createElement(&#39;style&#39;);
+  style.textContent = `
+    body {
+      --xr-left-width: ${LEFT_WIDTH}px;
+      --xr-right-width: ${RIGHT_WIDTH}px;
+    }
+
+    body.xr-left-closed {
+      --xr-left-width: 0px;
+    }
+
+    body.xr-right-closed {
+      --xr-right-width: 0px;
+    }
+
+    .xr-layout-root,
+    .xr-layout-ancestor {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      margin-inline: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .xr-layout-root {
+      display: flex !important;
+      justify-content: flex-start !important;
+      align-items: stretch !important;
+    }
+
+    /* 左メニュー */
+    body.xr-left-closed header[role=&quot;banner&quot;] {
+      display: none !important;
+    }
+
+    body:not(.xr-left-closed) header[role=&quot;banner&quot;] {
+      display: block !important;
+      position: fixed !important;
+      inset: 0 auto 0 0 !important;
+      width: var(--xr-left-width) !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      height: 100dvh !important;
+      margin: 0 !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+      z-index: 20;
+    }
+
+    header[role=&quot;banner&quot;] &gt; div,
+    header[role=&quot;banner&quot;] &gt; div &gt; div {
+      position: static !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin-inline: 0 !important;
+      transform: none !important;
+      box-sizing: border-box !important;
+    }
+
+    header[role=&quot;banner&quot;] nav a span,
+    header[role=&quot;banner&quot;] nav [role=&quot;button&quot;] span,
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_NewTweet_Button&quot;] span {
+      display: none !important;
+    }
+
+    header[role=&quot;banner&quot;] nav {
+      width: 100% !important;
+      align-items: center !important;
+    }
+
+    header[role=&quot;banner&quot;] nav &gt; a,
+    header[role=&quot;banner&quot;] nav &gt; [role=&quot;button&quot;] {
+      width: 52px !important;
+      min-width: 0 !important;
+      margin-inline: auto !important;
+      padding-inline: 0 !important;
+      align-items: center !important;
+    }
+
+    header[role=&quot;banner&quot;] nav &gt; a &gt; div,
+    header[role=&quot;banner&quot;] nav &gt; [role=&quot;button&quot;] &gt; div {
+      padding: 12px !important;
+      justify-content: center !important;
+    }
+
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_NewTweet_Button&quot;] {
+      position: relative !important;
+      width: 48px !important;
+      min-width: 48px !important;
+      height: 48px !important;
+      padding: 0 !important;
+      margin-inline: auto !important;
+      border-radius: 50% !important;
+    }
+
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_NewTweet_Button&quot;] svg {
+      display: block !important;
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    /* 幅の広い画面で投稿アイコンがない場合の代替 */
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_NewTweet_Button&quot;]:not(:has(svg))::after {
+      content: &quot;＋&quot;;
+      font-size: 28px;
+      color: inherit;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_AccountSwitcher_Button&quot;] {
+      width: 52px !important;
+      min-width: 0 !important;
+      padding: 6px !important;
+      margin-inline: auto !important;
+      justify-content: center !important;
+    }
+
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_AccountSwitcher_Button&quot;] &gt; div {
+      flex: none !important;
+    }
+
+    header[role=&quot;banner&quot;]
+    [data-testid=&quot;SideNav_AccountSwitcher_Button&quot;]
+    &gt; div:not(:first-child) {
+      display: none !important;
+    }
+
+    /* 中央の投稿領域 */
+    body main[role=&quot;main&quot;] {
+      position: relative !important;
+      width: calc(
+        100% - var(--xr-left-width) - var(--xr-right-width)
+      ) !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      margin-left: var(--xr-left-width) !important;
+      margin-right: var(--xr-right-width) !important;
+      flex: none !important;
+      align-items: stretch !important;
+      box-sizing: border-box !important;
+    }
+
+    body main[role=&quot;main&quot;] &gt; div {
+      width: 100% !important;
+      max-width: ${WIDTH}px !important;
+      min-width: 0 !important;
+      margin-left: 0 !important;
+      margin-right: auto !important;
+      box-sizing: border-box !important;
+    }
+
+    body main[role=&quot;main&quot;] [data-testid=&quot;primaryColumn&quot;] {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      margin-inline: 0 !important;
+      flex: 1 1 0% !important;
+      box-sizing: border-box !important;
+    }
+
+    body main[role=&quot;main&quot;] .xr-width {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0 !important;
+      margin-inline: 0 !important;
+      box-sizing: border-box !important;
+      align-self: stretch !important;
+    }
+
+    /* 右の欄 */
+    body.xr-right-closed [data-testid=&quot;sidebarColumn&quot;] {
+      display: none !important;
+    }
+
+    body:not(.xr-right-closed) [data-testid=&quot;sidebarColumn&quot;] {
+      display: block !important;
+      position: fixed !important;
+      inset: 0 0 0 auto !important;
+      width: var(--xr-right-width) !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      height: 100dvh !important;
+      margin: 0 !important;
+      padding: 0 12px !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+      z-index: 20;
+    }
+
+    [data-testid=&quot;sidebarColumn&quot;] &gt; div,
+    [data-testid=&quot;sidebarColumn&quot;] &gt; div &gt; div {
+      position: static !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      transform: none !important;
+      box-sizing: border-box !important;
+    }
+
+    /* 文字サイズと投稿間隔 */
+    article[data-testid=&quot;tweet&quot;] [data-testid=&quot;tweetText&quot;],
+    article[data-testid=&quot;tweet&quot;] [data-testid=&quot;tweetText&quot;] * {
+      font-size: ${TEXT_SIZE}px !important;
+      line-height: 1.45 !important;
+    }
+
+    article[data-testid=&quot;tweet&quot;] [data-testid=&quot;User-Name&quot;],
+    article[data-testid=&quot;tweet&quot;] [data-testid=&quot;User-Name&quot;] * {
+      font-size: 12px !important;
+    }
+
+    article.xr-post {
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      padding-bottom: 8px !important;
+      box-sizing: border-box !important;
+    }
+
+    .xr-hidden,
+    .xr-recommendation-hidden {
+      display: none !important;
+    }
+
+    /* 画像・カード・引用の開閉リンク */
+    .xr-inline-links {
+      display: inline !important;
+      white-space: normal !important;
+    }
+
+    .xr-button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    article[data-testid=&quot;tweet&quot;] .xr-fold-button {
+      display: inline !important;
+      width: auto !important;
+      min-width: 0 !important;
+      margin: 0 0 0 0.6em !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      color: #1d9bf0 !important;
+      font-size: ${TEXT_SIZE}px !important;
+      line-height: 1.45 !important;
+      vertical-align: baseline !important;
+      cursor: pointer !important;
+    }
+
+    .xr-fold-button:hover {
+      text-decoration: underline !important;
+    }
+
+    .xr-fold-button:focus-visible {
+      outline: 2px solid #1d9bf0 !important;
+      outline-offset: 2px !important;
+    }
+
+    /* 一覧で、未クリックの投稿だけ操作欄を隠す */
+    article[data-testid=&quot;tweet&quot;].xr-actions-collapsed
+    [role=&quot;group&quot;] {
+      display: none !important;
+    }
+
+    /* 左右の開閉ボタン */
+    #xr-controls {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 9999;
+    }
+
+    #xr-controls button {
+      padding: 5px 10px;
+      border: 1px solid #8888;
+      border-radius: 16px;
+      background: #15202b;
+      color: white;
+      font-size: 11px;
+    }
+  `;
+  document.head.append(style);
+
+  function makeButton(text, className = &#39;&#39;) {
+    const button = document.createElement(&#39;button&#39;);
+    button.type = &#39;button&#39;;
+    button.className = `xr-button ${className}`;
+    button.textContent = text;
+    button.setAttribute(&#39;aria-expanded&#39;, &#39;false&#39;);
+    return button;
+  }
+
+  // ── 左右の欄の開閉 ──
+  const controls = document.createElement(&#39;div&#39;);
+  controls.id = &#39;xr-controls&#39;;
+
+  for (const [label, className] of [
+    [&#39;左の欄&#39;, &#39;xr-left-closed&#39;],
+    [&#39;右の欄&#39;, &#39;xr-right-closed&#39;]
+  ]) {
+    const button = makeButton(&#39;&#39;);
+
+    function refresh() {
+      const closed = document.body.classList.contains(className);
+      button.textContent = `${label}を${closed ? &#39;開く&#39; : &#39;畳む&#39;}`;
+      button.setAttribute(&#39;aria-expanded&#39;, String(!closed));
+    }
+
+    button.onclick = () =&gt; {
+      document.body.classList.toggle(className);
+      refresh();
+    };
+
+    refresh();
+    controls.append(button);
+  }
+
+  document.body.append(controls);
+
+  // ── レイアウトの幅制限を解除 ──
+  function fixLayoutRoot() {
+    const main = document.querySelector(&#39;main[role=&quot;main&quot;]&#39;);
+    const header = document.querySelector(&#39;header[role=&quot;banner&quot;]&#39;);
+    if (!main || !header) return;
+
+    let root = main.parentElement;
+
+    while (root &amp;&amp; !root.contains(header)) {
+      root = root.parentElement;
+    }
+
+    if (!root || root === document.body ||
+        root === document.documentElement) return;
+
+    root.classList.add(&#39;xr-layout-root&#39;);
+
+    let parent = root.parentElement;
+    while (parent &amp;&amp; parent !== document.body &amp;&amp;
+           parent !== document.documentElement) {
+      parent.classList.add(&#39;xr-layout-ancestor&#39;);
+      parent = parent.parentElement;
+    }
+  }
+
+  function widen(article) {
+    const column = article.closest(
+      &#39;[data-testid=&quot;primaryColumn&quot;]&#39;
+    );
+    if (!column) return;
+
+    let element = article;
+    while (element &amp;&amp; element !== column) {
+      element.classList.add(&#39;xr-width&#39;);
+      element = element.parentElement;
+    }
+  }
+
+  // ── 画像・引用・カードの折り畳み ──
+  const preparedFrames = new WeakSet();
+
+  function ownText(article) {
+    return [...article.querySelectorAll(
+      &#39;[data-testid=&quot;tweetText&quot;]&#39;
+    )].find(el =&gt;
+      el.closest(&#39;article&#39;) === article &amp;&amp;
+      !el.closest(&#39;[data-xr-fold]&#39;) &amp;&amp;
+      !el.closest(&#39;[data-testid=&quot;quoteTweet&quot;]&#39;) &amp;&amp;
+      !el.closest(&#39;[role=&quot;link&quot;][tabindex=&quot;0&quot;]&#39;)
+    );
+  }
+
+  function fold(frame, label, article) {
+    if (preparedFrames.has(frame)) return;
+    if (frame.closest(&#39;[data-xr-fold]&#39;)) return;
+
+    preparedFrames.add(frame);
+    frame.dataset.xrFold = &#39;closed&#39;;
+    frame.classList.add(&#39;xr-hidden&#39;);
+
+    const button = makeButton(
+      `${label}を開く`,
+      &#39;xr-fold-button&#39;
+    );
+
+    const text = ownText(article);
+
+    if (text) {
+      let links = text.querySelector(&#39;.xr-inline-links&#39;);
+
+      if (!links) {
+        links = document.createElement(&#39;span&#39;);
+        links.className = &#39;xr-inline-links&#39;;
+        text.append(links);
+      }
+
+      links.append(button);
+    } else {
+      frame.before(button);
+    }
+
+    button.onclick = event =&gt; {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const hidden = frame.classList.toggle(&#39;xr-hidden&#39;);
+      frame.dataset.xrFold = hidden ? &#39;closed&#39; : &#39;open&#39;;
+      button.textContent =
+        `${label}を${hidden ? &#39;開く&#39; : &#39;畳む&#39;}`;
+      button.setAttribute(&#39;aria-expanded&#39;, String(!hidden));
+    };
+  }
+
+  function mediaFrame(media, article) {
+    let frame = media;
+
+    while (frame.parentElement &amp;&amp;
+           frame.parentElement !== article) {
+      const parent = frame.parentElement;
+
+      if (parent.querySelector(
+        &#39;[data-testid=&quot;tweetText&quot;], [role=&quot;group&quot;], article,&#39; +
+        &#39;[data-testid^=&quot;UserAvatar&quot;], .xr-button&#39;
+      )) break;
+
+      if (parent.textContent.trim()) break;
+      if (parent.hasAttribute(&#39;data-xr-fold&#39;)) break;
+
+      frame = parent;
+    }
+
+    return frame;
+  }
+
+  // ── 操作欄：クリックした投稿だけ表示 ──
+const openedActionRows = new WeakSet();
+
+function isPostDetail() {
+  return /\/status\/\d+/.test(location.pathname);
+}
+
+// 古いhover指定より優先して、閉じた状態を維持する
+const actionStyle = document.createElement(&#39;style&#39;);
+actionStyle.textContent = `
+  body main article[data-testid=&quot;tweet&quot;].xr-actions-collapsed
+  [role=&quot;group&quot;] {
+    display: none !important;
+  }
+`;
+document.head.append(actionStyle);
+
+function syncActionRows() {
+  const detail = isPostDetail();
+
+  document.querySelectorAll(
+    &#39;article[data-testid=&quot;tweet&quot;]&#39;
+  ).forEach(article =&gt; {
+    const shouldHide =
+      !detail &amp;&amp; !openedActionRows.has(article);
+
+    // 必要なときだけ変更する
+    if (
+      article.classList.contains(&#39;xr-actions-collapsed&#39;)
+      !== shouldHide
+    ) {
+      article.classList.toggle(
+        &#39;xr-actions-collapsed&#39;,
+        shouldHide
+      );
+    }
+  });
+}
+
+document.addEventListener(&#39;click&#39;, event =&gt; {
+  if (isPostDetail()) return;
+  if (event.button !== 0) return;
+  if (event.ctrlKey || event.metaKey ||
+      event.shiftKey || event.altKey) return;
+
+  const target = event.target instanceof Element
+    ? event.target
+    : event.target?.parentElement;
+
+  const article = target?.closest(
+    &#39;article[data-testid=&quot;tweet&quot;]&#39;
+  );
+  if (!article) return;
+
+  // リンクや各種ボタンは本来の動作を優先
+  if (target.closest(
+    &#39;a, button, input, textarea, select,&#39; +
+    &#39;[role=&quot;button&quot;], [role=&quot;link&quot;],&#39; +
+    &#39;[contenteditable=&quot;true&quot;], [role=&quot;group&quot;]&#39;
+  )) return;
+
+  if (window.getSelection()?.toString()) return;
+
+  // 1回目：個別表示への移動を止め、操作欄だけ開く
+  if (!openedActionRows.has(article)) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    openedActionRows.add(article);
+    syncActionRows();
+  }
+
+  // 2回目：何も止めず、X本来の個別表示へ進む
+}, true);
+
+// Xが投稿のclassを書き換えた場合も状態を復元
+let actionSyncQueued = false;
+
+new MutationObserver(records =&gt; {
+  const articleChanged = records.some(record =&gt;
+    record.target instanceof Element &amp;&amp;
+    record.target.matches(&#39;article[data-testid=&quot;tweet&quot;]&#39;)
+  );
+
+  if (!articleChanged || actionSyncQueued) return;
+
+  actionSyncQueued = true;
+  requestAnimationFrame(() =&gt; {
+    actionSyncQueued = false;
+    syncActionRows();
+  });
+}).observe(document.body, {
+  attributes: true,
+  attributeFilter: [&#39;class&#39;],
+  subtree: true
+});
+
+  // ── おすすめユーザーを非表示 ──
+  function hideRecommendations() {
+    // 再利用された行に、以前の非表示状態を残さない
+    document.querySelectorAll(
+      &#39;.xr-recommendation-hidden&#39;
+    ).forEach(el =&gt; {
+      el.classList.remove(&#39;xr-recommendation-hidden&#39;);
+    });
+
+    document.querySelectorAll(
+      &#39;main [role=&quot;heading&quot;], main h2, main h3&#39;
+    ).forEach(heading =&gt; {
+      if (!/^(おすすめユーザー|Who to follow)$/i.test(
+        heading.textContent.trim()
+      )) return;
+
+      const cell = heading.closest(
+        &#39;[data-testid=&quot;cellInnerDiv&quot;]&#39;
+      );
+
+      if (!cell || cell.querySelector(
+        &#39;article[data-testid=&quot;tweet&quot;]&#39;
+      )) return;
+
+      cell.classList.add(&#39;xr-recommendation-hidden&#39;);
+
+      let next = cell.nextElementSibling;
+
+      while (next) {
+        if (next.querySelector(
+          &#39;article[data-testid=&quot;tweet&quot;]&#39;
+        )) break;
+
+        const isUser =
+          next.matches(&#39;[data-testid=&quot;UserCell&quot;]&#39;) ||
+          next.querySelector(&#39;[data-testid=&quot;UserCell&quot;]&#39;);
+
+        const isMore = /^(さらに表示|Show more)$/i.test(
+          next.textContent.trim()
+        );
+
+        if (!isUser &amp;&amp; !isMore) break;
+
+        next.classList.add(&#39;xr-recommendation-hidden&#39;);
+        next = next.nextElementSibling;
+
+        if (isMore) break;
+      }
+    });
+  }
+
+  // ── 画面更新への追従 ──
+  let previousPath = &#39;&#39;;
+  let followingPending = false;
+  let scheduled = false;
+
+  function update() {
+    scheduled = false;
+
+    fixLayoutRoot();
+    syncActionRows();
+    hideRecommendations();
+
+    if (previousPath !== location.pathname) {
+      previousPath = location.pathname;
+      followingPending = previousPath === &#39;/home&#39;;
+    }
+
+    if (followingPending) {
+      const following = [
+        ...document.querySelectorAll(&#39;[role=&quot;tab&quot;]&#39;)
+      ].find(tab =&gt;
+        /^(フォロー中|Following)$/i.test(
+          tab.textContent.trim()
+        )
+      );
+
+      if (following) {
+        followingPending = false;
+
+        if (following.getAttribute(&#39;aria-selected&#39;) !== &#39;true&#39;) {
+          following.click();
+        }
+      }
+    }
+
+    document.querySelectorAll(
+      &#39;article[data-testid=&quot;tweet&quot;]&#39;
+    ).forEach(article =&gt; {
+      article.classList.add(&#39;xr-post&#39;);
+      widen(article);
+
+      // 引用投稿を先に折り畳む
+      article.querySelectorAll(
+        &#39;[data-testid=&quot;quoteTweet&quot;], [role=&quot;link&quot;][tabindex=&quot;0&quot;]&#39;
+      ).forEach(candidate =&gt; {
+        const isQuote =
+          candidate.matches(&#39;[data-testid=&quot;quoteTweet&quot;]&#39;) ||
+          Boolean(candidate.querySelector(
+            &#39;[data-testid^=&quot;UserAvatar&quot;],&#39; +
+            &#39;[data-testid=&quot;User-Name&quot;]&#39;
+          ));
+
+        if (!isQuote) return;
+        if (candidate.querySelector(&#39;[role=&quot;group&quot;]&#39;)) return;
+        if (candidate.closest(&#39;article&#39;) !== article) return;
+
+        fold(candidate, &#39;引用投稿&#39;, article);
+      });
+
+      // リンクカード
+      article.querySelectorAll(
+        &#39;[data-testid=&quot;card.wrapper&quot;]&#39;
+      ).forEach(card =&gt; {
+        fold(card, &#39;リンクカード&#39;, article);
+      });
+
+      // 画像・動画
+      article.querySelectorAll(
+        &#39;[data-testid=&quot;tweetPhoto&quot;], [data-testid=&quot;videoPlayer&quot;]&#39;
+      ).forEach(media =&gt; {
+        if (media.closest(&#39;[data-xr-fold]&#39;)) return;
+
+        fold(
+          mediaFrame(media, article),
+          &#39;画像・動画&#39;,
+          article
+        );
+      });
+    });
+  }
+
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(update);
+  }
+
+  new MutationObserver(schedule).observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+  window.addEventListener(&#39;popstate&#39;, schedule);
+  update();
+})();
+
+</code></pre></section>
+</main></body></html>
