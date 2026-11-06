@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "appId": "aeoliaexceltabs-x86",
+  "platform": "windows",
+  "channel": "normal",
+  "latest": {
+    "version": "0.2.4",
+    "displayVersion": "0.2.4.20261102.1",
+    "buildId": "dotnet-mvid:29b5c48f-1d8f-4d1c-a2aa-22d9efdd73ff",
+    "pageUrl": "https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-excel-tabs-v0.2.4.20261102.1",
+    "versionCode": null
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "appId": "aeoliasidebar-pc",
+  "platform": "windows",
+  "channel": "normal",
+  "latest": {
+    "version": "0.14.0",
+    "displayVersion": "0.14.0",
+    "buildId": "dotnet-mvid:0447df84-aa66-4756-873f-7b4708d8dc7f",
+    "pageUrl": "https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-sidebar-v0.14.0",
+    "versionCode": null
+  }
+}

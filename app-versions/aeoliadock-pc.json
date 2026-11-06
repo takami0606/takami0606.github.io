@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "appId": "aeoliadock-pc",
+  "platform": "windows",
+  "channel": "normal",
+  "latest": {
+    "version": "8.4.0",
+    "displayVersion": "8.4.0-candidate.1",
+    "buildId": "dotnet-mvid:cf76450d-8bb0-40c7-92ab-f855cac05b19",
+    "pageUrl": "https://github.com/takami0606/takami0606.github.io/releases/tag/aeoliadock-v8.4.0-candidate.1",
+    "versionCode": null
+  }
+}
