@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "appId": "aeoliafiler-windows",
+  "platform": "windows",
+  "channel": "stable",
+  "latest": {
+    "version": "0.2.2026.1105",
+    "displayVersion": "0.2.2026.1105-views",
+    "buildId": "dotnet-mvid:24c67555-4651-4edf-b97a-4b0aebabfe95",
+    "pageUrl": "https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1105-views",
+    "versionCode": null
+  }
+}
