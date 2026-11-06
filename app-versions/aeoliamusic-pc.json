@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "appId": "aeoliamusic-pc",
+  "platform": "windows",
+  "channel": "normal",
+  "latest": {
+    "version": "0.11.10",
+    "displayVersion": "0.11.10 (privacy-clean public build)",
+    "buildId": "dotnet-mvid:b881be37-b2ec-4ca9-8bee-822ff56edf87",
+    "pageUrl": "https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-music-pc-v0.11.10",
+    "versionCode": null
+  }
+}
