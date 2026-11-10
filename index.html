@@ -55,6 +55,20 @@
   </div>
 
 
+  <section class="card" id="aeolia-filer-clouddelete-trial">
+    <h2>AeoliaFiler 0.2.2026.1110-clouddelete.1（削除対応の試用版・TRIAL）</h2>
+    <p><strong>正式版・安定版ではありません。専用フォルダーに試験のためだけに作った、失っても困らないファイルだけで試してください。業務用の原本やバックアップは使わないでください。</strong></p>
+    <p>対応するWindowsクラウド形式での作成・コピー・移動・名前変更・ショートカット作成を改善。クラウド・ネットワークでWindowsのごみ箱を使わずに削除するときは、対象と影響を示す専用の確認を経ます。内容を確認したうえで、利用者ご自身の実機で削除を実行できます。</p>
+    <p><strong>実際のBoxの形式は未確認で、従来の拒否エラーが残る可能性があります。元に戻せない削除が実機で成功することも未検証です。</strong>削除の成功ケースは模擬テストで、削除のWindows実処理は変更前のキャンセルだけを確認しました。バックアップ・復元は保証しません。変更や削除が他の端末へ同期される場合があり、途中で失敗・中止しても完了済みの変更は残ります。</p>
+    <p><a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-filer-v0.2.2026.1110-clouddelete.1-trial/AeoliaFiler-0.2.2026.1110-clouddelete.1-unpublished.zip">削除対応の試用版ZIPをダウンロード（751,675 bytes）</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1110-clouddelete.1-trial">使い方・制限・検証範囲・SHA-256</a></p>
+    <p>Windows x64／.NET Desktop Runtime 9 x64が必要です。旧アプリを残し、別の書き込み可能なフォルダーへZIP全体を展開して、App/AeoliaFiler.exeを起動してください。会社のセキュリティ規則に従ってください。</p>
+    <details>
+      <summary>制限と検証について</summary>
+      <p>クラウド上のZIP操作は未対応です。未知の再解析タグ、シンボリックリンク・ジャンクション、アクセス拒否では処理を止めます。対象を絞った568項目はPASS、FAILは0ですが、すべてのクラウド事業者やアプリ全体の回帰検証ではありません。</p>
+      <p>ファイル名の「unpublished」は梱包時点の表記です。検証したZIPを変更せず、試用版として配布します。試用中に設定やデータが変わらないことは保証しません。</p>
+    </details>
+  </section>
+
   <section class="card" id="aeolia-filer-cloudcopy-trial">
     <h2>AeoliaFiler 0.2.2026.1110-cloudcopy.1（クラウドからのコピー確認用・試用版）</h2>
     <p><strong>実際のBox・OneDrive環境では未検証です。元の例外が解消した保証はありません。重要なデータを避け、小さな使い捨てファイルと空の専用コピー先で試してください。</strong></p>
