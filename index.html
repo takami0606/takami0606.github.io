@@ -40,7 +40,7 @@
 </head>
 <body>
   <h1>Locker Room</h1><p><a href="archive.html">旧バージョン一覧</a></p>
-  <p class="filer-jump"><a href="#aeolia-filer-clouddelete-trial">Filerを試す：最新の統合試用版はこちら</a></p>
+  <p class="filer-jump"><a href="#aeolia-filer-latest">Filer：最新の正式版はこちら</a></p>
   <p>自分専用の便利なポータル</p>
 
   <div class="card">
@@ -63,8 +63,32 @@
   </div>
 
 
-  <section class="card filer-latest" id="aeolia-filer-clouddelete-trial">
-    <h2>AeoliaFiler 最新の統合試用版</h2>
+  <section class="card filer-latest" id="aeolia-filer-latest">
+    <h2>AeoliaFiler 最新の正式版</h2>
+    <p class="filer-version">0.2.2026.1112 ／ Windows x64</p>
+    <p><strong>通常利用向けの正式版です。このZIPを1つだけ使ってください。</strong>過去の試用版を順番に入れたり、複数のZIPを組み合わせたりする必要はありません。</p>
+    <p>右ドラッグの「ショートカットの作成」と移動の余分な再確認を省略しました。右クリック・Alt+EnterのWindowsプロパティ、登録済みマウント配下の安全確認、同名コピー・ショートカットの自動採番、新規フォルダーの一覧内名前編集を統合しています。名前編集終了後のアクセシビリティ関連の終了問題にも対処しました。</p>
+    <p class="filer-download"><a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-filer-v0.2.2026.1112/AeoliaFiler-0.2.2026.1112.zip">最新の正式版をダウンロード（ZIP・808,158 bytes）</a></p>
+    <p><a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1112">変更内容・導入方法・制限・検証範囲</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-filer-v0.2.2026.1112/AeoliaFiler-0.2.2026.1112.zip.sha256">ZIPのSHA-256</a></p>
+    <ol>
+      <li>初回はZIP全体を書き込み可能なフォルダーへ展開し、App内の<strong>AeoliaFiler.exe</strong>を起動します。</li>
+      <li>更新時はFilerをすべて終了し、既存Appフォルダー全体をバックアップします。</li>
+      <li>配布App内の5ファイルだけを上書きし、設定・お気に入り・連携バックアップ等は残してください。戻す場合は終了後に保存したApp全体を戻します。</li>
+    </ol>
+    <p>Windows x64／.NET 9 Windows Desktop Runtime x64が必要です。未署名のポータブル版です。Windows関連付け・自動起動を変更する必要はありません。</p>
+    <details>
+      <summary>安全性・クラウド操作の制限・検証範囲</summary>
+      <p>エラー・競合・単独削除の確認は維持します。Box／OneDrive等が独自に出す通知・確認の消失は保証しません。実際のBox／OneDriveの全条件は認証していません。最初は失っても困らないデータで確認してください。</p>
+      <p>検証付き移動は同名を上書きせずコピー内容を確認してから、元をWindowsのごみ箱を使わず削除します。削除前の失敗は元を保持しますが、削除開始後は部分完了があり、一括巻き戻しはありません。同期完了・復元・ACLや時刻等は保証しません。1回128ファイル・8192項目・深さ64・512MiBまで、パス259 UTF-16文字まで。特殊内容や未知の再解析ポイント等は拒否します。詳しくは同梱README.txtをご覧ください。</p>
+      <p>9つの対象別ローカル回帰試験は969 PASS／0 FAIL。UI Automation・強制GCを含む追加試験は3回とも237 PASS／0 FAIL。ビルドは警告0・エラー0、独立レビュー・配布物のプライバシー確認済みです。アプリ全体や全クラウド環境の認証ではありません。</p>
+    </details>
+  </section>
+
+  <details class="filer-history" id="aeolia-filer-previous">
+    <summary>Filerの以前の試用版・通常版を見る（比較・戻す場合）</summary>
+    <p>以前の配布物は比較・戻す場合のため残しています。通常利用には、上の「最新の正式版」を使ってください。</p>
+  <section class="card" id="aeolia-filer-clouddelete-trial">
+    <h2>AeoliaFiler 以前の統合試用版（2026-11-10）</h2>
     <p class="filer-version">0.2.2026.1110-clouddelete.1 ／ Windows x64</p>
     <p><strong>これまでの機能をまとめて試す方は、このZIPを1つだけ使ってください。</strong>過去の試用版を順番に入れたり、複数のZIPを組み合わせたりする必要はありません。</p>
     <p>フォント・表示設定、起動済みウィンドウへの転送（IPC）、対応するWindowsクラウド形式での作成・コピー・移動・名前変更・ショートカット作成・削除確認を含みます。「削除だけの版」ではありません。</p>
@@ -87,9 +111,7 @@
     </details>
   </section>
 
-  <details class="filer-history" id="aeolia-filer-previous">
-    <summary>Filerの以前の試用版・通常版を見る（比較・戻す場合）</summary>
-    <p>これまでの配布物は削除せずに残しています。今回まとめて試す場合は、上の「最新の統合試用版」を使ってください。</p>
+
   <section class="card" id="aeolia-filer-cloudcopy-trial">
     <h2>AeoliaFiler 0.2.2026.1110-cloudcopy.1（クラウドからのコピー確認用・試用版）</h2>
     <p><strong>実際のBox・OneDrive環境では未検証です。元の例外が解消した保証はありません。重要なデータを避け、小さな使い捨てファイルと空の専用コピー先で試してください。</strong></p>
