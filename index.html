@@ -100,12 +100,13 @@
 
   <section class="card filer-latest" id="aeolia-filer-latest">
     <h2>AeoliaFiler 最新版</h2>
-    <p class="filer-version">0.2.2026.1114 ／ Windows x64</p>
+    <p class="filer-version">0.2.2026.1115 ／ Windows x64</p>
     <p><strong>通常利用版です。このZIPを1つだけ使ってください。</strong>過去の試作版を順番に入れる必要はありません。旧版も引き続きダウンロードできます。</p>
+    <p><strong>公開版確認がWindowsのProxy設定に従うようになりました。</strong>会社Proxyを無視した直接通信をやめ、確認ごとにHTTP接続を作り直します。認証情報は自動送信しません。認証必須のProxyや会社側の接続制限では確認できない場合があります。会社実環境では未確認です。</p>
     <p>OneDrive管理フォルダーからのコピー・移動の受け入れ処理を修正しました。正常完了・通常のキャンセルではFiler独自の「操作結果」画面を出しません。Windows標準の上書き確認、実際のエラー・安全確認・完了不明時の警告は維持します。</p>
     <p>お気に入りフォルダーの展開状態保存、右クリックの解凍・送る・Windowsメニューと幅調整を統合。アドレスバーへ単一ファイルのパスを貼ってEnterで起動できます（引数付きコマンド・シェル構文は対象外）。</p>
-    <p class="filer-download"><a href="downloads/AeoliaFiler-0.2.2026.1114.zip">最新版をダウンロード（ZIP・819,346 bytes）</a></p>
-    <p><a href="downloads/Filer-0.2.2026.1114-notes.txt">変更内容・導入方法・制限・検証範囲</a> ／ <a href="downloads/AeoliaFiler-0.2.2026.1114.zip.sha256">ZIPのSHA-256</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1112">旧版0.2.2026.1112</a></p>
+    <p class="filer-download"><a href="downloads/AeoliaFiler-0.2.2026.1115.zip">最新版をダウンロード（ZIP・827,840 bytes）</a></p>
+    <p><a href="downloads/Filer-0.2.2026.1115-notes.txt">変更内容・導入方法・制限・検証範囲</a> ／ <a href="downloads/AeoliaFiler-0.2.2026.1115.zip.sha256">ZIPのSHA-256</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1112">旧版0.2.2026.1112</a></p>
     <ol>
       <li>初回はZIP全体を書き込み可能なフォルダーへ展開し、App内の<strong>AeoliaFiler.exe</strong>を起動します。</li>
       <li>更新時はFilerをすべて終了し、既存Appフォルダー全体をバックアップします。</li>
@@ -115,7 +116,8 @@
     <details>
       <summary>安全性・クラウド操作の制限・検証範囲</summary>
       <p>キャンセル前に完了したコピー・移動は戻りません。検証付き移動は同名を上書きせず内容確認後、元をWindowsのごみ箱を使わず削除します。削除開始後は部分完了があり一括巻き戻しはありません。同期完了・復元・ACLや時刻等は保証しません。1回128ファイル・8192項目・深さ64・512MiB、パス259 UTF-16文字まで。特殊内容や未知の再解析ポイント等は拒否します。詳細は同梱README.txtをご覧ください。</p>
-      <p>通常版ビルドのShell・結果判定テスト57項目成功。広範囲回帰の再実行は697 PASS／2 FAIL（旧版番号固定・旧確認フロー期待の既知2件）。全件成功ではありません。利用者環境で前段のOneDrive→Dコピー・右ドラッグ移動は成功報告済みですが、本版の通知抑制を含む実OneDrive・会社PCでの再確認は未実施です。</p>
+      <p>今回の更新確認回帰105項目とProxy関連10項目成功（自宅HTTPS、模擬ProxyのCONNECT・407、キャンセル等）。OSのProxy設定は変更せず検証しました。会社実環境・認証Proxy・PACは未確認です。</p>
+      <p>前版の記録：通常版ビルドのShell・結果判定テスト57項目成功。広範囲回帰の再実行は697 PASS／2 FAIL（旧版番号固定・旧確認フロー期待の既知2件）。全件成功ではありません。利用者環境で前段のOneDrive→Dコピー・右ドラッグ移動は成功報告済みですが、本版の通知抑制を含む実OneDrive・会社PCでの再確認は未実施です。</p>
     </details>
   </section>
 

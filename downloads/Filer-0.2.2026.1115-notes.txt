@@ -1,0 +1,7 @@
+AEOLIA Filer 0.2.2026.1115
+
+WindowsのProxy設定に従って公開版カタログを取得します。確認ごとにHTTP接続を新しくします。Cookie、接続先認証、Proxy認証情報を自動送信せず、TLS証明書検証とリダイレクト拒否を維持します。会社の制限を回避するものではありません。
+
+検証：公開版確認等105項目、Proxy関連10項目成功。自宅HTTPS、模擬Proxy CONNECTと407、中断等を確認。会社の実Proxy、認証Proxy、PAC環境は未確認です。従来のファイル操作の制限は同梱README.txtをご覧ください。
+
+導入：Filerを終了し、既存Appフォルダーをバックアップしてから配布App内の5ファイルだけ上書き。設定ファイルやお気に入りは残してください。Windows x64、.NET 9 Windows Desktop Runtime x64が必要です。
