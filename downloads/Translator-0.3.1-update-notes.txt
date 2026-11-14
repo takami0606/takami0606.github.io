@@ -1,0 +1,14 @@
+AEOLIA Translator 0.3.1 ソフトウェアのみの試用更新
+
+既存0.2.0/0.3.0へ適用できます。導入済みモデル・軽量/高精度コアの再取得は不要です。
+1. Translatorの両画面を終了し既存フォルダーを保管。
+2. installer.zipを既存Translatorフォルダー内へ展開。runtimeとUpdate-software-0.3.1が同階層になります。
+3. Update-software-0.3.1内のInstall.cmdを実行しUpdate completed.を確認。
+4. 軽量はStart.cmd、高精度はStart-Quality.cmd。
+
+ASCII技術識別子の綴り・出現回数を検査し、欠落/変更/重複を検出したらHTTP422 identifiers_changedで訳文を返さず停止します。AHK呼出側は成功時のみ貼り付けてください。
+識別子を維持した意味の誤り、否定・条件誤り、一般用語・非ASCII識別子などは検出できない場合があります。正常な略語展開を止める場合もあります。会社のAHK置換コードは未検証です。
+
+0.2.0直接更新と0.3.0からの更新に成功。各経路でguard5件+HTTP8件の試験成功。UI・モデル・コアは変更していません。業務品質・すべてのPCでの動作を保証しません。
+SHA256 13babb4e629286353e61cc92b156b9bda07950d346e99fbe527f816a3e3fdaf4
+39248 bytes

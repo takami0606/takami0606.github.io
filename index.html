@@ -44,11 +44,14 @@
   <p>自分専用の便利なポータル</p>
 
   <section class="card" id="aeolia-translator">
-    <h2>AEOLIA Translator 0.3.0（部品別更新・試用版）</h2>
+    <h2>AEOLIA Translator 0.3.1（部品別更新・試用版）</h2>
+    <p><strong>0.3.1は識別子変更の検出を追加した小更新です。0.2.0からも0.3.0からも適用でき、導入済みの両コアは再ダウンロード不要です。</strong>軽量・高精度の両方でASCII技術識別子（PendingDTC、ECU、P0300、error_code、ISO-14229など）の綴りと出現回数を検査し、欠落・変更・重複を検出すると訳文を返さず停止します。</p>
+    <p>意味・否定・条件の正しさを保証する修正ではありません。識別子を保った誤訳、一般用語・非ASCII識別子などは見逃し得ます。正常な略語展開を止める場合もあります。AHKからは成功した応答だけを貼り付け、HTTP 422 identifiers_changed等のエラー時は原文を残してください。会社のAHK置換コードは未検証です。</p>
+    <p><a href="downloads/AEOLIA-Translator-software-0.3.1-installer.zip.sha256">0.3.1 ZIPのSHA-256</a> ／ <a href="downloads/Translator-0.3.1-update-notes.txt">0.3.1の導入・確認範囲</a></p>
     <p>軽量版を残し、高精度モードを追加できます。ソフトウェア・軽量コア・高精度コアは別々に更新します。既存の0.2.0をお持ちなら、149MBの初回セットや軽量コアを再ダウンロードする必要はありません。</p>
-    <p><a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-software-0.3.0-installer.zip">① ソフトウェア0.3.0（37,654 bytes）</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-translator-v0.3.0-trial">導入手順・検証範囲・全ファイル</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/SHA256SUMS.txt">SHA-256一覧</a></p>
+    <p><a href="downloads/AEOLIA-Translator-software-0.3.1-installer.zip">① ソフトウェア0.3.1（39,248 bytes）</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-translator-v0.3.0-trial">0.3.0コアの導入手順・全ファイル</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/SHA256SUMS.txt">0.3.0配布部品のSHA-256</a></p>
     <p>高精度モードを追加するときだけ、次の3ファイルも必要です：<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0-installer.zip">② 高精度コア導入用ZIP（8,436 bytes）</a>、<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0.zip.part01">③ part01（1.5GB）</a>、<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0.zip.part02">④ part02（約978MB）</a>。</p>
-    <p>①を既存Translatorフォルダー内へ展開し、Update-software-0.3.0のInstall.cmdを実行します。高精度を追加する場合は②も展開し、③④をUpdate-quality-core-1.0.0内のInstall.cmdと同じ場所へ置いて実行。サイズ・ハッシュ検証後に自動結合します。partを個別に解凍しないでください。詳細は<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/INSTALL_COMPONENTS_JA.md">日本語導入説明</a>をご覧ください。</p>
+    <p>①を既存Translatorフォルダー内へ展開し、Update-software-0.3.1のInstall.cmdを実行します。高精度を追加する場合は②も展開し、③④をUpdate-quality-core-1.0.0内のInstall.cmdと同じ場所へ置いて実行。サイズ・ハッシュ検証後に自動結合します。partを個別に解凍しないでください。詳細は<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/INSTALL_COMPONENTS_JA.md">コア導入説明（ソフト更新部分は0.3.1に読み替え）</a>をご覧ください。</p>
     <p>Windows x64用。高精度導入前に10GB以上の空きを目安に確保してください。軽量はStart.cmd／Ctrl+Alt+T、高精度はStart-Quality.cmd／Ctrl+Alt+Y。既存Ctrl+T・Alt+2は変更しません。高精度モデルは同梱済みでHugging Faceへの接続不要、翻訳文を外部AIへ送信しません。会社の制限は回避せずIT部門へ確認してください。</p>
     <p><strong>試用版です。常に軽量版より正確とは限らず、会社16GB PCでの性能は未確認です。</strong>手元32GB PCでは20例中18件翻訳・2件は数値変更防止で停止、メモリー約4.96GBでした。品質・速度・業務運用は保証しません。専門用語・否定・数値を原文と照合してください。各部品の同梱ライセンスが適用されます。</p>
     <details><summary>初めて導入する方・軽量コアを再導入する方</summary>
