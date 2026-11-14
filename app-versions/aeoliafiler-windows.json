@@ -4,10 +4,10 @@
   "platform": "windows",
   "channel": "stable",
   "latest": {
-    "version": "0.2.2026.1112",
-    "displayVersion": "0.2.2026.1112",
-    "buildId": "dotnet-mvid:ea7a4a27-6874-454e-aa03-a98e6980098e",
-    "pageUrl": "https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1112",
+    "version": "0.2.2026.1114",
+    "displayVersion": "0.2.2026.1114",
+    "buildId": "dotnet-mvid:0520479d-528c-40db-b91b-7025cd710060",
+    "pageUrl": "https://takami0606.github.io/#aeolia-filer-latest",
     "versionCode": null
   }
 }

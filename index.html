@@ -40,7 +40,7 @@
 </head>
 <body>
   <h1>Locker Room</h1><p><a href="archive.html">旧バージョン一覧</a></p>
-  <p class="filer-jump"><a href="#aeolia-filer-latest">Filer：最新の正式版はこちら</a></p>
+  <p class="filer-jump"><a href="#aeolia-filer-latest">Filer：最新版はこちら</a></p>
   <p>自分専用の便利なポータル</p>
 
   <section class="card" id="aeolia-translator">
@@ -96,23 +96,23 @@
 </section>
 
   <section class="card filer-latest" id="aeolia-filer-latest">
-    <h2>AeoliaFiler 最新の正式版</h2>
-    <p class="filer-version">0.2.2026.1112 ／ Windows x64</p>
-    <p><strong>通常利用向けの正式版です。このZIPを1つだけ使ってください。</strong>過去の試用版を順番に入れたり、複数のZIPを組み合わせたりする必要はありません。</p>
-    <p>右ドラッグの「ショートカットの作成」と移動の余分な再確認を省略しました。右クリック・Alt+EnterのWindowsプロパティ、登録済みマウント配下の安全確認、同名コピー・ショートカットの自動採番、新規フォルダーの一覧内名前編集を統合しています。名前編集終了後のアクセシビリティ関連の終了問題にも対処しました。</p>
-    <p class="filer-download"><a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-filer-v0.2.2026.1112/AeoliaFiler-0.2.2026.1112.zip">最新の正式版をダウンロード（ZIP・808,158 bytes）</a></p>
-    <p><a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1112">変更内容・導入方法・制限・検証範囲</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-filer-v0.2.2026.1112/AeoliaFiler-0.2.2026.1112.zip.sha256">ZIPのSHA-256</a></p>
+    <h2>AeoliaFiler 最新版</h2>
+    <p class="filer-version">0.2.2026.1114 ／ Windows x64</p>
+    <p><strong>通常利用版です。このZIPを1つだけ使ってください。</strong>過去の試作版を順番に入れる必要はありません。旧版も引き続きダウンロードできます。</p>
+    <p>OneDrive管理フォルダーからのコピー・移動の受け入れ処理を修正しました。正常完了・通常のキャンセルではFiler独自の「操作結果」画面を出しません。Windows標準の上書き確認、実際のエラー・安全確認・完了不明時の警告は維持します。</p>
+    <p>お気に入りフォルダーの展開状態保存、右クリックの解凍・送る・Windowsメニューと幅調整を統合。アドレスバーへ単一ファイルのパスを貼ってEnterで起動できます（引数付きコマンド・シェル構文は対象外）。</p>
+    <p class="filer-download"><a href="downloads/AeoliaFiler-0.2.2026.1114.zip">最新版をダウンロード（ZIP・819,346 bytes）</a></p>
+    <p><a href="downloads/Filer-0.2.2026.1114-notes.txt">変更内容・導入方法・制限・検証範囲</a> ／ <a href="downloads/AeoliaFiler-0.2.2026.1114.zip.sha256">ZIPのSHA-256</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-filer-v0.2.2026.1112">旧版0.2.2026.1112</a></p>
     <ol>
       <li>初回はZIP全体を書き込み可能なフォルダーへ展開し、App内の<strong>AeoliaFiler.exe</strong>を起動します。</li>
       <li>更新時はFilerをすべて終了し、既存Appフォルダー全体をバックアップします。</li>
       <li>配布App内の5ファイルだけを上書きし、設定・お気に入り・連携バックアップ等は残してください。戻す場合は終了後に保存したApp全体を戻します。</li>
     </ol>
-    <p>Windows x64／.NET 9 Windows Desktop Runtime x64が必要です。未署名のポータブル版です。Windows関連付け・自動起動を変更する必要はありません。</p>
+    <p>Windows x64／.NET 9 Windows Desktop Runtime x64が必要です（ランタイム別途）。未署名ポータブル版です。会社PCでは社内の利用方針に従ってください。個人設定・ファイル・ログは同梱していません。</p>
     <details>
       <summary>安全性・クラウド操作の制限・検証範囲</summary>
-      <p>エラー・競合・単独削除の確認は維持します。Box／OneDrive等が独自に出す通知・確認の消失は保証しません。実際のBox／OneDriveの全条件は認証していません。最初は失っても困らないデータで確認してください。</p>
-      <p>検証付き移動は同名を上書きせずコピー内容を確認してから、元をWindowsのごみ箱を使わず削除します。削除前の失敗は元を保持しますが、削除開始後は部分完了があり、一括巻き戻しはありません。同期完了・復元・ACLや時刻等は保証しません。1回128ファイル・8192項目・深さ64・512MiBまで、パス259 UTF-16文字まで。特殊内容や未知の再解析ポイント等は拒否します。詳しくは同梱README.txtをご覧ください。</p>
-      <p>9つの対象別ローカル回帰試験は969 PASS／0 FAIL。UI Automation・強制GCを含む追加試験は3回とも237 PASS／0 FAIL。ビルドは警告0・エラー0、独立レビュー・配布物のプライバシー確認済みです。アプリ全体や全クラウド環境の認証ではありません。</p>
+      <p>キャンセル前に完了したコピー・移動は戻りません。検証付き移動は同名を上書きせず内容確認後、元をWindowsのごみ箱を使わず削除します。削除開始後は部分完了があり一括巻き戻しはありません。同期完了・復元・ACLや時刻等は保証しません。1回128ファイル・8192項目・深さ64・512MiB、パス259 UTF-16文字まで。特殊内容や未知の再解析ポイント等は拒否します。詳細は同梱README.txtをご覧ください。</p>
+      <p>通常版ビルドのShell・結果判定テスト57項目成功。広範囲回帰の再実行は697 PASS／2 FAIL（旧版番号固定・旧確認フロー期待の既知2件）。全件成功ではありません。利用者環境で前段のOneDrive→Dコピー・右ドラッグ移動は成功報告済みですが、本版の通知抑制を含む実OneDrive・会社PCでの再確認は未実施です。</p>
     </details>
   </section>
 
