@@ -1,0 +1,45 @@
+AEOLIA Translator software 0.3.4 / 2026-11-17
+
+Distribution artifact:
+AEOLIA-Translator-software-0.3.4-installer.zip
+Bytes: 50940
+SHA-256: 23289f1a12af9dfab0a154d1636d215e05ae023bbf572db2a8248a91d6865970
+
+Scope: offline software update for an existing 0.3.3 installation.
+No model, Python, llama.cpp or company configuration changes.
+Validation did not modify the user's existing installation. This report accompanies the authorized website publication.
+
+Validation:
+- Final ZIP installed to a separate 0.3.3 copy; 26 payload files verified.
+- 1463 model/runtime/core files unchanged; explicit idle_seconds=60 preserved.
+- Existing Start.cmd preserved; repeated install succeeded.
+- 52 API/engine/regression tests passed against files from the installed ZIP.
+- Actual AHK helper test passed for review display, source preservation,
+  clipboard non-modification, success and non-number error paths.
+- Standard AeoliaTranslateAndApply callback was NOT called on numeric,
+  missing-number, truncated-output, identifier, timeout or empty-input errors.
+  Normal output invoked it once. The Edit adapter refused stale input.
+- 22 unchanged updater safety tests passed, including rollback, checksums,
+  locally changed files, version constraints and occupied-port refusal.
+- Exact installed Launcher and ReplacementExample AHK syntax passed.
+- The final numerical engine and both guard modules are byte-identical to
+  the candidate tested with the real Qwen model: 25-character normal input
+  2.72s; 36-character scale-conversion review 3.53s; 958-character review
+  38.23s. One model generation per request; no automatic retry.
+- Candidate GUI button interaction and warning/difference layout were
+  inspected through Computer Use. GUI callback tests verified empty normal
+  output and copy no-op on a blocked translation, plus normal success.
+
+Limitations:
+- Company Ctrl+T and its exception handling have not been inspected or tested.
+- Actual AHK tests use synthetic inputs and a simulated replacement caller,
+  not the company macro. The new example modifies only its own Edit control.
+- The first long-input test detected a clipboard change while UI testing was
+  concurrent. The writer is unknown. That record is retained. A sequential
+  rerun passed; this does not establish the cause of the initial change.
+- Updating files does not reload an already running user AHK script. Copied
+  old helper functions must be aligned as a complete set with version 0.3.4.
+- Unverified drafts are not automatically approved, even for apparent
+  equivalent notation such as 1 million / 100万. Review meaning and units.
+
+Read README_UPDATE_JA.txt (also included inside the installer ZIP) before use.
