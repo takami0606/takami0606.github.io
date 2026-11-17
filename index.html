@@ -44,32 +44,32 @@
   <p>自分専用の便利なポータル</p>
 
   <section class="card" id="aeolia-translator">
-    <h2>AEOLIA Translator 0.3.4（数字不一致時の確認用訳案表示）</h2>
+    <h2>AEOLIA Translator 0.3.5（翻訳結果を優先して返す更新）</h2>
     <p class="release-date">この版の公開日：2026-11-17</p>
-    <p><strong>numbers_changedで翻訳が停止した場合も、生成済みの訳案を確認できます。</strong>原文・未検証の訳案・数字の出現回数差分を別画面に表示します。数字の欠落・変更を自動承認せず、原文の自動置換・自動貼付は行いません。通常の結果欄は空のままで、自動再翻訳による追加の待ち時間もありません。</p>
-    <p>「1 million → 100万」のような同じ意味の表記変更でも数字検査は停止します。差分は誤訳や欠落の断定ではありません。訳案全体が未検証なので、数値・単位・否定・条件を原文と照合してください。数字・識別子の検査は無効化していません。</p>
-    <p><a href="downloads/AEOLIA-Translator-software-0.3.4-installer.zip">ソフトウェア0.3.4更新ZIP（50,940 bytes）</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.4-installer.zip.sha256">SHA-256</a> ／ <a href="downloads/Translator-0.3.4-update-notes.txt">更新手順・旧helper混在の注意</a> ／ <a href="downloads/Translator-0.3.4-verification.txt">検証範囲</a></p>
-    <p><strong>対象は0.3.3へ更新済みの既存フォルダーです。</strong>ソフトウェアのみの更新で、導入済みモデル・Python・llama.cpp・軽量コアの再ダウンロードは不要です。設定がない場合は自動休止なし、既存のquality-settings.jsonに60秒等を指定している場合はその値を保持します。</p>
+    <p><strong>高品質モードで、数字・識別子の差異を理由に翻訳を停止しなくなりました。</strong>生成した訳文を通常の結果として返し、GUIには必要に応じて軽い注意を表示します。呼出側が戻り値を貼り付ける実装なら、Ctrl+Tも通常の置換へ進みます。自動再翻訳はしません。</p>
+    <p>「10月16日 → October 16」「1 million → 100万」のような自然な表記変更も、数字照合では差として扱われます。0.3.5ではそれだけでHTTP 422にしません。一方、<strong>実際の数字・識別子の欠落や変更も結果として返ります。注意がなくても単位・否定・条件などの誤訳はあり得て、正確性は自動保証されません。</strong>空出力やモデルが報告する途中終了、通信障害などは引き続きエラーです。</p>
+    <p><a href="downloads/AEOLIA-Translator-software-0.3.5-installer.zip">ソフトウェア0.3.5更新ZIP（54,256 bytes）</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.5-installer.zip.sha256">SHA-256</a> ／ <a href="downloads/Translator-0.3.5-update-notes.txt">更新手順・旧helper混在の注意</a> ／ <a href="downloads/Translator-0.3.5-verification.txt">検証範囲</a></p>
+    <p>対象は既存の0.3.3 / 0.3.4フォルダーです。ソフトウェアのみの更新で、導入済みモデル・Python・llama.cppの再取得は不要です。既存のquality-settings.jsonを保持します。軽量モードの翻訳仕様は変更していません。</p>
     <ol>
-      <li>作業中の文書を保存し、更新前のフォルダーと独自AHKをバックアップしてください。</li>
-      <li><strong>軽量版を終了し、高品質版はトレイの「終了（翻訳APIも停止）」で終了してください。画面の×やEscは隠すだけです。</strong>自動起動する独自AHKも通常の方法で終了し、更新中のAPI再起動を防いでください。</li>
-      <li>更新ZIPを既存Translatorフォルダー内へ展開し、<code>Update-software-0.3.4\Install.cmd</code>を実行します。更新器がサイズ・SHA-256と既存ファイルを検査します。エラー時に強制上書きやロック削除で進めないでください。</li>
-      <li><code>Start-Quality.cmd</code>で起動し、トレイからGUIを開いて0.3.4表示と非機密の短文を確認します。その後、独自AHKの参照先・版を揃えて再読み込みしてください。</li>
+      <li>作業中の文書を保存し、更新前フォルダーと独自AHKをバックアップします。</li>
+      <li><strong>軽量版を終了し、高品質版はトレイの「終了（翻訳APIも停止）」で終了します。画面の×は隠すだけです。</strong>自動起動する独自AHKも終了してください。</li>
+      <li>更新ZIPを既存Translatorフォルダー内へ展開し、<code>Update-software-0.3.5\Install.cmd</code>を実行します。エラー時は強制上書きせず停止してください。</li>
+      <li><code>Start-Quality.cmd</code>で起動して0.3.5表示と非機密の短文を確認し、独自AHKの参照先・版を揃えて再読み込みします。</li>
     </ol>
-    <p><strong>旧helperの混在に注意：</strong>高品質版は同じインストールの<code>ui_quality\AeoliaLocal.ahk</code>、ポート51233を使います。軽量用51231とは別です。#Include先が正しくても、実行中AHKは再読み込みが必要です。関数をコピーした場合は新しい依存関数も含めて一式を揃えてください。AeoliaStartの厳密な版確認により、旧helperと新API、別フォルダーのAPIの混在は起動失敗になります。版確認や数字検査を削除して回避しないでください。</p>
-    <p><strong>会社PCの独自Ctrl+Tと例外処理は未検証です。</strong>既存ホットキーは変更しません。同梱の標準関数は翻訳例外時に適用・貼付コールバックを呼ばず、任意の置換例はその例自身の入力欄だけを変更します。他アプリへの貼付には、待機中のフォーカス・選択範囲変更への対策が別途必要です。確認画面が出た例外を成功扱いし、古い訳文を貼り付けないでください。</p>
-    <p>手元の合成入力で52回帰試験・22更新器試験、実AHKの模擬呼出側、GUIを確認。実モデルでは短文と958文字を検証し、958文字は約38秒・生成1回で確認用訳案を表示しました。会社文・会社PCの速度・独自マクロの動作保証ではありません。初回長文試験には原因未特定のクリップボード変化があり、画面操作と分けた再試験で非置換・不変更を確認しましたが、初回原因は未解明です。</p>
-    <p>高品質版はトレイ常駐です。手動休止後は次の翻訳で再ロードします。翻訳はローカル処理で、原文・訳文のログ保存や外部AIへの自動送信はしません。会社の持込み・実行ルールに従い、制限は回避せずIT担当へ確認してください。各部品の同梱ライセンスが適用されます。</p>
-    <details><summary>高品質コアを追加する場合（導入済みなら不要）</summary>
-    <p>高精度モードを追加するときだけ、次の3ファイルも必要です：<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0-installer.zip">② 高精度コア導入用ZIP（8,436 bytes）</a>、<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0.zip.part01">③ part01（1.5GB）</a>、<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0.zip.part02">④ part02（約978MB）</a>。</p>
-      <p><a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-translator-v0.3.0-trial">コアの導入手順・全ファイル</a>。part01・part02は高品質コア更新フォルダーのInstall.cmdと同じ場所へ置いて実行します。partを個別に解凍しないでください。高品質導入前は10GB以上の空きを目安に確保してください。</p>
-    </details>
-    <p>旧版：<a href="downloads/AEOLIA-Translator-software-0.3.3-installer.zip">ソフトウェア0.3.3</a> ／ <a href="downloads/Translator-0.3.3-update-notes.txt">0.3.3の説明</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.2-installer.zip">0.3.2</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.1-installer.zip">0.3.1</a></p>
-    <details><summary>初めて導入する方・軽量コアを再導入する方</summary>
-      <p>新規導入では初回セットの後、<a href="downloads/AEOLIA-Translator-software-0.3.3-installer.zip">ソフトウェア0.3.3</a>を適用してから0.3.4へ更新してください。0.3.4の更新確認は0.3.3を基準に行っています。</p>
-      <p>初回は共通Python/AHKを含む<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.2.0-trial/AEOLIA-Translator-0.2.0-win-x64-first-run.zip">0.2.0初回セット（149,181,758 bytes）</a>から開始してください。軽量初回のみCTranslate2を公式PyPIのfiles.pythonhosted.orgから約20.7MB取得します。必要なVC++ランタイムがない場合はIT部門に確認してください。</p>
-      <p>軽量コアの再導入のみ：<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-light-core-0.2.0-installer.zip">軽量コア導入用ZIP</a>と<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-light-core-0.2.0.zip">軽量コア0.2.0（149,081,919 bytes）</a>。既存利用者には不要で、これだけでは新規導入できません。</p>
-    </details>
+    <p><strong>旧helperの混在に注意：</strong>高品質版は同じインストールの<code>ui_quality\AeoliaLocal.ahk</code>、ポート51233です。軽量用51231とは別です。旧helperでも新APIの翻訳結果は受け取れますが、新しい注意表示はありません。AeoliaStartは版を厳密に確認するため、一式を0.3.5へ揃えてください。ファイル更新だけでは起動済みAHKは変わりません。</p>
+    <p><strong>会社PCの独自AHK / Ctrl+Tと例外処理は未検証です。</strong>標準置換呼出側は成功時に適用し、例外時は適用しません。数字・識別子の差異は今回から成功扱いです。他アプリへの貼付には待機中のフォーカス・選択範囲変更への対応が別途必要です。</p>
+    <p>Python50件、更新器22件、実AHK・GUIと独立コピーの0.3.4からの更新を検証しました。実モデルの1,016文字では生成約30.66秒・検査約0.45ミリ秒で通常応答を確認。生成1回で、照合後に結果を使えなくする問題を解消します。モデル生成自体の高速化や会社PCの速度を保証する更新ではありません。</p>
+    <p>高品質版はトレイ常駐で、手動休止後は次の翻訳で再ロードします。翻訳はローカル処理で、原文・訳文をログ保存せず、外部AIへ自動送信しません。会社の持込み・実行ルールに従ってください。</p>
+    <details><summary>高品質コアを追加する場合（導入済みなら不要）</summary>
+    <p>高精度モードを追加するときだけ、次の3ファイルも必要です：<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0-installer.zip">② 高精度コア導入用ZIP（8,436 bytes）</a>、<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0.zip.part01">③ part01（1.5GB）</a>、<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-quality-core-1.0.0.zip.part02">④ part02（約978MB）</a>。</p>
+      <p><a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-translator-v0.3.0-trial">コアの導入手順・全ファイル</a>。part01・part02は高品質コア更新フォルダーのInstall.cmdと同じ場所へ置いて実行します。partを個別に解凍しないでください。高品質導入前は10GB以上の空きを目安に確保してください。</p>
+    </details>
+    <p>旧版：<a href="downloads/AEOLIA-Translator-software-0.3.4-installer.zip">ソフトウェア0.3.4</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.3-installer.zip">ソフトウェア0.3.3</a> ／ <a href="downloads/Translator-0.3.3-update-notes.txt">0.3.3の説明</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.2-installer.zip">0.3.2</a> ／ <a href="downloads/AEOLIA-Translator-software-0.3.1-installer.zip">0.3.1</a></p>
+    <details><summary>初めて導入する方・軽量コアを再導入する方</summary>
+      <p>新規導入では初回セットの後、<a href="downloads/AEOLIA-Translator-software-0.3.3-installer.zip">ソフトウェア0.3.3</a>を適用してから0.3.5へ更新してください。0.3.5の更新確認は0.3.4を基準に行っています。</p>
+      <p>初回は共通Python/AHKを含む<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.2.0-trial/AEOLIA-Translator-0.2.0-win-x64-first-run.zip">0.2.0初回セット（149,181,758 bytes）</a>から開始してください。軽量初回のみCTranslate2を公式PyPIのfiles.pythonhosted.orgから約20.7MB取得します。必要なVC++ランタイムがない場合はIT部門に確認してください。</p>
+      <p>軽量コアの再導入のみ：<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-light-core-0.2.0-installer.zip">軽量コア導入用ZIP</a>と<a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-translator-v0.3.0-trial/AEOLIA-Translator-light-core-0.2.0.zip">軽量コア0.2.0（149,081,919 bytes）</a>。既存利用者には不要で、これだけでは新規導入できません。</p>
+    </details>
   </section>
 
   <div class="card">
