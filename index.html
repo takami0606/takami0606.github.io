@@ -43,6 +43,20 @@
   <p class="filer-jump"><a href="#aeolia-filer-latest">Filer：最新版はこちら</a></p>
   <p>自分専用の便利なポータル</p>
 
+  <section class="card" id="aeolia-sentence-experiment">
+    <h2>AEOLIA 文単位翻訳・実験版（既存の軽量環境を利用）</h2>
+    <p class="release-date">公開日：2026-11-18</p>
+    <p><strong>既存の軽量版が実際にオフライン翻訳できる方用です。</strong>高品質版（Qwen / llama.cpp）だけが動く環境や、初回準備前のセットだけでは使えません。モデル・Python・CTranslate2・SentencePieceは同梱していません。</p>
+    <p><a href="downloads/AEOLIA-Sentence-Reuse-20261118.zip">実験版ZIPをダウンロード（8,623 bytes）</a> ／ <a href="downloads/AEOLIA-Sentence-Reuse-20261118.zip.sha256">SHA-256</a> ／ <a href="downloads/README-Sentence-Reuse-20261118.txt">必要条件・説明書</a></p>
+    <ol>
+      <li>ZIPを新しい専用フォルダーに展開します。既存Translatorへ上書きしないでください。</li>
+      <li><code>Start-Reuse.cmd</code>を起動し、既存Translatorの場所（直下に<code>runtime</code>と<code>models</code>があるフォルダー）を入力します。</li>
+      <li>ブラウザー画面で方向を選び、まず非機密の短文を試してください。終了は黒い起動画面で<code>Ctrl+C</code>です。</li>
+    </ol>
+    <p>英日・日英の変換済みモデルと対応ランタイムが必要です。不足時は具体的なパスや理由を表示して停止し、自動取得はしません。既存設定・モデル・AHKは変更せず、原文の自動置換や外部翻訳APIへの送信もしません。</p>
+    <p><strong>会社のCore Ultra 5 235Uと既存ランタイムの組合せは未検証で、数秒以内の速度は保証できません。</strong>一文ずつ原文と訳文を表示しますが、「未満→以下」、否定・義務・条件の誤訳、識別子改変や省略が残ります。警告がなくても原文と照合してください。長すぎる一文は切り捨てず未処理表示になります。</p>
+  </section>
+
   <section class="card" id="aeolia-translator">
     <h2>AEOLIA Translator 0.3.5（翻訳結果を優先して返す更新）</h2>
     <p class="release-date">この版の公開日：2026-11-17</p>
