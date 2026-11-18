@@ -44,7 +44,18 @@
   <p>自分専用の便利なポータル</p>
 
   <section class="card" id="aeolia-sentence-experiment">
-    <h2>AEOLIA 文単位翻訳・実験版（既存の軽量環境を利用）</h2>
+    <h2>AEOLIA 文単位翻訳・実験版</h2>
+    <h3>単体完結版 0.1.0（約147 MB）</h3>
+    <p><strong>既存Translatorなしで試せる、Python・英日/日英モデル・CPUランタイム同梱版です。</strong>下の小型版と同じ文単位翻訳エンジンを使います。別モデル版ではありません。</p>
+    <p><a href="https://api.github.com/repos/takami0606/takami0606.github.io/releases/assets/764448262">単体完結版ZIPをダウンロード（147,116,495 bytes）</a> ／ <a href="https://api.github.com/repos/takami0606/takami0606.github.io/releases/assets/764448262.sha256">SHA-256</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-sentence-v0.1.0-experiment-20261118">検証結果・ライセンス・制限</a></p>
+    <ol>
+      <li>ZIPを新しい専用フォルダーに<strong>全展開</strong>します。既存Translatorには上書きせず、ZIP内から直接起動しないでください。</li>
+      <li>展開先の<code>Start.cmd</code>を起動します。モデルやPythonの追加取得は不要です。</li>
+      <li>まず非機密の短文で試してください。必要なら<code>Check.cmd</code>で同梱ファイルと両方向翻訳を確認できます。</li>
+    </ol>
+    <p>Windows 10/11 x64用。ブラウザーと同じPCの127.0.0.1へのアクセスが必要です。会社の実行ルールに従ってください。</p>
+    <p><strong>会社Core Ultra 5 235Uでの動作・速度は未検証です。</strong>自宅5800X・CPU 1スレッドでの翻訳時間中央値は英804文字→日2.123秒、日762文字→英8.844秒（起動・モデル読込を除く）。数秒以内を保証する結果ではありません。「未満→以下」、義務表現の弱化、識別子改変や省略などの誤訳が残るため、原文との照合が必要です。</p>
+    <h3>小型版（既存の軽量環境を利用）</h3>
     <p class="release-date">公開日：2026-11-18</p>
     <p><strong>既存の軽量版が実際にオフライン翻訳できる方用です。</strong>高品質版（Qwen / llama.cpp）だけが動く環境や、初回準備前のセットだけでは使えません。モデル・Python・CTranslate2・SentencePieceは同梱していません。</p>
     <p><a href="downloads/AEOLIA-Sentence-Reuse-20261118.zip">実験版ZIPをダウンロード（8,623 bytes）</a> ／ <a href="downloads/AEOLIA-Sentence-Reuse-20261118.zip.sha256">SHA-256</a> ／ <a href="downloads/README-Sentence-Reuse-20261118.txt">必要条件・説明書</a></p>
