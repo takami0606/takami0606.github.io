@@ -43,6 +43,21 @@
   <p class="filer-jump"><a href="#aeolia-filer-latest">Filer：最新版はこちら</a></p>
   <p>自分専用の便利なポータル</p>
 
+  <section class="card" id="aeolia-vulkan-validation">
+    <h2>Vulkan GPU検出・速度比較キット（約38.9 MB）</h2>
+    <p class="release-date">公開日：2026-11-18</p>
+    <p><strong>翻訳完成版ではなく、既存の高品質モデルをGPUで処理できるか確認する検証キットです。</strong>Translatorの更新版ではありません。</p>
+    <p><a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-vulkan-b12374-experiment-20261118/AEOLIA-Vulkan-validation-b12374.zip">検証キットZIP（38,870,742 bytes）</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-vulkan-b12374-experiment-20261118/AEOLIA-Vulkan-validation-b12374.zip.sha256">SHA-256</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-vulkan-b12374-experiment-20261118">手順・検証範囲・制限</a></p>
+    <ol>
+      <li>ZIPを既存Translatorの外の別フォルダーへ全展開します。</li>
+      <li>既存Translatorフォルダーを<code>Run-Detect.cmd</code>へドラッグしてください。GPUの検出のみ行い、モデルはロードしません。</li>
+      <li>速度比較は同梱<code>README_JA.md</code>に従い、既存Translatorを通常終了できる時間に実施してください。</li>
+    </ol>
+    <p>既存Translatorの<code>runtime&#92;python.exe</code>と<code>Qwen3-4B-Instruct-2507-Q4_K_M.gguf</code>が必要です。Python・モデルは同梱しません。公式llama.cppのVulkanバイナリを同梱し、ドライバー追加・更新はしません。</p>
+    <p><strong>会社Core Ultra 5 235Uでは動作・速度とも未測定です。</strong>GPU検出成功だけで高速化は保証できず、CPUより遅くなる場合もあります。自宅RTX 3060 Tiの結果を会社PCの予測には使えません。共有GPUメモリは追加RAMではなく、空きメモリ不足時は比較を開始しないでください。</p>
+    <p>固定の非機密合成文による比較用で、通常のCtrl+T・AHK・GUIには接続しません。訳抜けや否定・数字・単位の正確性も保証されません。</p>
+  </section>
+
   <section class="card" id="aeolia-opus-study">
     <h2>AEOLIA OPUS 比較実験版 0.1.0（約269 MB）</h2>
     <p class="release-date">公開日：2026-11-18</p>
