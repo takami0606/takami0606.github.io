@@ -43,6 +43,21 @@
   <p class="filer-jump"><a href="#aeolia-filer-latest">Filer：最新版はこちら</a></p>
   <p>自分専用の便利なポータル</p>
 
+  <section class="card" id="aeolia-opus-study">
+    <h2>AEOLIA OPUS 比較実験版 0.1.0（約269 MB）</h2>
+    <p class="release-date">公開日：2026-11-18</p>
+    <p><strong>英日モデルを比較する独立実験版です。本番推奨版・速度改善版ではありません。</strong>既存の文単位版や小型版はそのまま使えます。</p>
+    <p><a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-opus-study-v0.1.0-experiment-20261118/AEOLIA-OPUS-Study-0.1.0-offline-win-x64.zip">モデル・ランタイム同梱ZIP（269,198,678 bytes）</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/download/aeolia-opus-study-v0.1.0-experiment-20261118/AEOLIA-OPUS-Study-0.1.0-offline-win-x64.zip.sha256">SHA-256</a> ／ <a href="https://github.com/takami0606/takami0606.github.io/releases/tag/aeolia-opus-study-v0.1.0-experiment-20261118">比較結果・制限・ライセンス</a></p>
+    <ol>
+      <li>Windows x64用。ZIPを新しい専用フォルダーへ全展開し、<code>Start.cmd</code>を実行します。既存版へ上書きしないでください。</li>
+      <li>コマンド画面でモデル・翻訳方向・UTF-8入力ファイルを指定します。英日ではOPUS en-jap、Tatoeba、比較用FuguMTを選べます。<strong>日英は既存と同じOPUS-MTモデルで、新しい日英モデルではありません。</strong></li>
+      <li>空欄でEnterを進めると合成長文のテストを実行します。結果は<code>app/results/translation.html</code>と<code>translation.json</code>へ保存されます。HTMLをブラウザーで比較してください。次回実行で上書きされるため、残す結果は別名で保存してください。</li>
+    </ol>
+    <p>Python・CPU専用ランタイム・4モデルを同梱し、追加取得は不要です。CLIで実行してHTML結果を見る比較用ソフトで、通常の翻訳画面とは異なります。まず非機密の文で試し、会社の実行ルールに従ってください。</p>
+    <p><strong>OPUS en-japは重大な訳崩れを確認しています。</strong>Tatoebaは長文一括で末尾欠落・変質の例があり、文分割でも条件や識別子の誤訳が残ります。全ての文に出力があっても意味の完全性は保証されません。</p>
+    <p>自宅Ryzen 7 5800X・同梱CPU専用1スレッド・英語長文9文の温状態中央値：FuguMT 2.548秒、OPUS en-jap 6.983秒、Tatoeba 4.254秒。今回の実測では両OPUS候補ともFuguMTより遅く、初回読込・初回推論は含みません。<strong>会社Core Ultra 5 235Uでの動作・速度は未測定です。</strong></p>
+  </section>
+
   <section class="card" id="aeolia-sentence-experiment">
     <h2>AEOLIA 文単位翻訳・実験版</h2>
     <h3>単体完結版 0.1.0（約147 MB）</h3>
